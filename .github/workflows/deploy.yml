@@ -15,15 +15,15 @@ jobs:
             uses: azure/login@v2
             with:
               creds: ${{secrets.AZURE_CREDENTIALS}}
-          az acr login -n labdeployacr
-          docker tag myapp:latest labdeployacr.azurecr.io/myapp:latest
-          docker push labdeployacr.azurecr.io/myapp:latest
+          az acr login -n labdeployacrlaurent
+          docker tag myapp:latest labdeployacrlaurent.azurecr.io/myapp:latest
+          docker push labdeployacrlaurent.azurecr.io/myapp:latest
       - name: Deploy to WebApp
         run: |
           az webapp config container set \
-          -g RGLabDeploy \
-          -n labdeploy-webapp \
-          --container-image-name labdeployacr.azurecr.io/myapp:latest \
-          --container-registry-url https://labdeployacr.azurecr.io \
+          -g RGLabDeploy-laurent \
+          -n labdeploy-webapp-laurent \
+          --container-image-name labdeployacrlaurent.azurecr.io/myapp:latest \
+          --container-registry-url https://labdeployacrlaurent.azurecr.io \
           --container-registry-user <USERNAME> \
           --container-registry-password <PASSWORD>
